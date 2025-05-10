@@ -3,19 +3,23 @@
 ```
 
 ```bash
-  sudo chown -R $(id -u):$(id -g) src
+  cp .env.example .env
 ```
 
 ```bash
-  docker compose exec php-cli bash -c "composer create-project laravel/laravel ."
+  docker compose exec php-cli composer install
+```
+
+```bash
+  docker compose exec php-cli bash -c "php artisan key:generate"
+```
+
+```bash
+  sudo chown -R $(id -u):$(id -g) src
 ```
 
 ```bash 
   sudo chmod 777 -R ./src/storage
-```
-
-```bash
-  cp .env.example .env
 ```
 
 ```bash
