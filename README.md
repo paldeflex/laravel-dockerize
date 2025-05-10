@@ -3,33 +3,19 @@
 ```
 
 ```bash
-  docker compose exec php-cli bash -c "composer create-project laravel/laravel example-app"
+  sudo chown -R $(id -u):$(id -g) src
 ```
 
 ```bash
-  mv example-app/* ./
-```
-
-```bash
-  mv example-app/.* ./
-```
-
-```bash
-  rm -rf example-app
+  docker compose exec php-cli bash -c "composer create-project laravel/laravel ."
 ```
 
 ```bash 
-  sudo chmod 777 -R storage/
+  sudo chmod 777 -R ./src/storage
 ```
 
-```dotenv
-# ./src/.env
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=secret
+```bash
+  cp .env.example .env
 ```
 
 ```bash
