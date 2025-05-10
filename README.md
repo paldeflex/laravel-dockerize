@@ -23,5 +23,5 @@
 ```
 
 ```bash
-  docker compose exec php-fpm bash -c "php artisan migrate"
+  docker compose exec php-cli bash -c "php artisan migrate"
 ```
