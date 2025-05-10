@@ -18,4 +18,4 @@ docker compose exec php-cli bash -c "php artisan key:generate"
 
 docker compose exec php-fpm bash -c "php artisan migrate"
 
-echo "✅ Setup complete!"
+echo " ✅ Установка завершена!"
