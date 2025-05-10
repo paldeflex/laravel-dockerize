@@ -1,29 +1,38 @@
 FROM php:8.4.6-fpm
 
-RUN apt-get update && apt-get install -y libmcrypt-dev libpng-dev mariadb-client \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libgd-dev \
-    && docker-php-ext-install pdo_mysql
-
-RUN docker-php-ext-configure exif
-RUN docker-php-ext-install exif
-RUN docker-php-ext-enable exif
-
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-webp=/usr/include/  --with-jpeg=/usr/include/
-RUN docker-php-ext-install -j$(nproc) gd
-
-RUN apt install jpegoptim optipng pngquant gifsicle libavif-bin -y
-
-RUN apt-get install -y wget unzip curl
-RUN curl -sS https://getcomposer.org/installer |php
-RUN mv composer.phar /usr/local/bin/composer
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      libmcrypt-dev \
+      libpng-dev \
+      libjpeg-dev \
+      libfreetype6-dev \
+      libgd-dev \
+      mariadb-client \
+      wget \
+      unzip \
+      curl \
+      jpegoptim \
+      optipng \
+      pngquant \
+      gifsicle \
+      libavif-bin \
+ && docker-php-ext-configure exif \
+ && docker-php-ext-configure gd \
+      --with-freetype=/usr/include/ \
+      --with-jpeg=/usr/include/ \
+      --with-webp=/usr/include/ \
+ && docker-php-ext-install -j"$(nproc)" \
+      pdo_mysql \
+      pcntl \
+      exif \
+      gd \
+ && docker-php-ext-enable exif \
+ \
+ && curl -sS https://getcomposer.org/installer \
+      | php -- --install-dir=/usr/local/bin --filename=composer \
+ \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY ./conf.d /usr/local/etc/php/conf.d/
-
 WORKDIR /var/www
-
-
-
