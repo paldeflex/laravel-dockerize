@@ -1,4 +1,4 @@
-.PHONY: setup
+.PHONY: setup start
 
 setup:
 	docker compose up --build -d
@@ -8,3 +8,6 @@ setup:
 	sudo chmod -R 777 ./src/storage
 	docker compose exec php-cli php artisan key:generate --ansi
 	docker compose exec php-cli php artisan migrate --ansi
+
+start:
+	docker compose up -d
