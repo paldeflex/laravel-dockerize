@@ -43,6 +43,7 @@ services:
       - "COMPOSER_MEMORY_LIMIT=-1"
       - "COMPOSER_CACHE_DIR=/tmp"
       - "COMPOSER_HOME=/tmp"
+      - "XDG_CONFIG_HOME=/tmp"
     links:
       - mysql
     tty: true
