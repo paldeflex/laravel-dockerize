@@ -13,4 +13,9 @@ RUN apt-get update && \
        php -- --install-dir=/usr/local/bin --filename=composer \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY ./xdebug/xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 WORKDIR /var/www
